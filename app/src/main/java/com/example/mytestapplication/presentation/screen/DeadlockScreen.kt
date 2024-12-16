@@ -32,11 +32,11 @@ import com.example.mytestapplication.core.common.RaceConditionWithLock
 @Composable
 fun DeadlockScreen() {
     var counterRaceCondition by remember { mutableIntStateOf(0) }
-    var counterRaceConditionMutex by remember { mutableIntStateOf(0) }
-    var counterRaceConditionAtomic by remember { mutableIntStateOf(0) }
+    var counterRaceConditionWithLock by remember { mutableIntStateOf(0) }
+    var counterRaceConditionWithAtomic by remember { mutableIntStateOf(0) }
     var resultDeadlock by remember { mutableStateOf("Пока не заблокировано") }
-    var resultDeadlockMutex by remember { mutableStateOf("Пока не заблокировано") }
-    var resultDeadlockChannel by remember { mutableStateOf("Пока не заблокировано") }
+    var resultDeadlockWithLock by remember { mutableStateOf("Пока не заблокировано") }
+    var resultDeadlockWithSemaphore by remember { mutableStateOf("Пока не заблокировано") }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -58,19 +58,19 @@ fun DeadlockScreen() {
             DeadlockScreenElement(
                 onClick = {
                     RaceConditionWithLock().runExample { newValue ->
-                        counterRaceConditionMutex = newValue
+                        counterRaceConditionWithLock = newValue
                     }
                 },
-                result = counterRaceConditionMutex.toString(),
+                result = counterRaceConditionWithLock.toString(),
                 text = "Cостояниe гонки с Lock"
             )
             DeadlockScreenElement(
                 onClick = {
                     RaceConditionWithAtomic().runExample { newValue ->
-                        counterRaceConditionAtomic = newValue
+                        counterRaceConditionWithAtomic = newValue
                     }
                 },
-                result = counterRaceConditionAtomic.toString(),
+                result = counterRaceConditionWithAtomic.toString(),
                 text = "Cостояниe гонки с Atomic"
             )
             DeadlockScreenElement(
@@ -85,19 +85,19 @@ fun DeadlockScreen() {
             DeadlockScreenElement(
                 onClick = {
                     DeadlockWithLock().runExample { newResult ->
-                        resultDeadlockMutex = newResult
+                        resultDeadlockWithLock = newResult
                     }
                 },
-                result = resultDeadlockMutex,
+                result = resultDeadlockWithLock,
                 text = "Взаимная блокировка c Lock"
             )
             DeadlockScreenElement(
                 onClick = {
                     DeadlockWithSemaphore().runExample { newResult ->
-                        resultDeadlockChannel = newResult
+                        resultDeadlockWithSemaphore = newResult
                     }
                 },
-                result = resultDeadlockChannel,
+                result = resultDeadlockWithSemaphore,
                 text = "Взаимная блокировка c Semaphore"
             )
         }
