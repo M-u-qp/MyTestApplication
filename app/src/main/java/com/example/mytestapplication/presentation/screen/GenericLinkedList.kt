@@ -39,7 +39,7 @@ fun GenericLinkedList() {
 
 @Composable
 private inline fun <reified T> GenericLinkedListElement(type: Class<T>) {
-    val linkedList = remember { MyGenericLinkedList<T>() }
+    val linkedList = remember { mutableStateOf(MyGenericLinkedList<T>()) }
     val inputValue = remember { mutableStateOf("") }
     val listItems = remember { mutableStateOf(listOf<T>()) }
     Column(
@@ -57,27 +57,27 @@ private inline fun <reified T> GenericLinkedListElement(type: Class<T>) {
                 when (type) {
                     Int::class.java -> {
                         inputValue.value.toIntOrNull()?.let {
-                            linkedList.add(it as T)
+                            linkedList.value = linkedList.value.add(it as T)
                         }
                     }
                     Double::class.java -> {
                         inputValue.value.toDoubleOrNull()?.let {
-                            linkedList.add(it as T)
+                            linkedList.value = linkedList.value.add(it as T)
                         }
                     }
                     Boolean::class.java -> {
                         val value = inputValue.value.lowercase()
                         if (value == "true" || value == "false") {
-                            linkedList.add(value.toBoolean() as T)
+                            linkedList.value = linkedList.value.add(value.toBoolean() as T)
                         }
                     }
                     else -> {
                         if (inputValue.value.isNotBlank()) {
-                            linkedList.add(inputValue.value as T)
+                            linkedList.value = linkedList.value.add(inputValue.value as T)
                         }
                     }
                 }
-                listItems.value = linkedList.toList()
+                listItems.value = linkedList.value.toList()
                 inputValue.value = ""
             }
         ) {
@@ -85,8 +85,9 @@ private inline fun <reified T> GenericLinkedListElement(type: Class<T>) {
         }
         Button(
             onClick = {
-                linkedList.reverse()
-                listItems.value = linkedList.toList()
+                linkedList.value = linkedList.value.reverse()
+                listItems.value = linkedList.value.toList()
+                linkedList.value.forEach1 { println(it) }
             }
         ) {
             Text("Развернуть")

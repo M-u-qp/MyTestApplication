@@ -1,21 +1,28 @@
 package com.example.mytestapplication.core.common
 
-class MyGenericLinkedList<T> {
-    private var head: Node<T>? = null
-    private var tail: Node<T>? = null
+class MyGenericLinkedList<T>(private val head: Node<T>? = null) {
+    data class Node<T>(val data: T, val next: Node<T>? = null)
 
-    private data class Node<T>(var data: T, var next: Node<T>? = null)
-
-    fun add(data: T) {
+    fun add(data: T): MyGenericLinkedList<T> {
         val newNode = Node(data)
-        if (head == null) {
-            head = newNode
-            tail = newNode
+        return if (head == null) {
+            MyGenericLinkedList(newNode, newNode)
         } else {
-            tail?.next = newNode
-            tail = newNode
+            val newTail = Node(data)
+            val newHead = appendToTail(head, newTail)
+            MyGenericLinkedList(newHead, newTail)
         }
     }
+
+    private fun appendToTail(current: Node<T>, newTail: Node<T>): Node<T> {
+        return if (current.next == null) {
+            current.copy(next = newTail)
+        } else {
+            current.copy(next = appendToTail(current.next, newTail))
+        }
+    }
+
+    private constructor(oldHead: Node<T>?, newTail: Node<T>) : this(oldHead ?: newTail)
 
     fun reverse(): MyGenericLinkedList<T> {
         var previous: Node<T>? = null
@@ -24,12 +31,10 @@ class MyGenericLinkedList<T> {
 
         while (current != null) {
             next = current.next
-            current.next = previous
-            previous = current
+            previous = Node(current.data, previous)
             current = next
         }
-        head = previous
-        return this
+        return MyGenericLinkedList(previous)
     }
 
     fun toList(): List<T> {
@@ -42,10 +47,10 @@ class MyGenericLinkedList<T> {
         return result
     }
 
-    fun printList() {
+    fun forEach1(action: (T) -> Unit) {
         var current = head
         while (current != null) {
-            println(current.data)
+            action(current.data)
             current = current.next
         }
     }

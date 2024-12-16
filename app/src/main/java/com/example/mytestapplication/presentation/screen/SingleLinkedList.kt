@@ -48,7 +48,7 @@ fun SingleLinkedList() {
                         listItems.value = linkedList.toList()
                         inputValue.value = ""
                     }
-                    linkedList.printList()
+                    linkedList.forEach1 { println(it) }
                 }
             ) {
                 Text("Добавить")

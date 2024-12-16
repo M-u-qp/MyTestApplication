@@ -8,31 +8,33 @@ class DeadlockExample {
     private val lock2 = Any()
 
     private fun method1(onResult: (String) -> Unit) {
-        Thread {
-            synchronized(lock1) {
-                onResult("Поток 1 замок 1")
-                Log.d("MyLog", "Поток 1 пытается захватить замок 2")
-                synchronized(lock2) {
-                    onResult("Поток 1 замок 2")
-                }
+        synchronized(lock1) {
+            onResult("Поток 1 замок 1")
+            Log.d("MyLog", "Поток 1 пытается захватить замок 2")
+            Thread.sleep(1000)
+            synchronized(lock2) {
+                onResult("Поток 1 замок 2")
             }
-        }.start()
+        }
     }
 
     private fun method2(onResult: (String) -> Unit) {
-        Thread {
-            synchronized(lock2) {
-                onResult("Поток 2 замок 2")
-                Log.d("MyLog", "Поток 2 пытается захватить замок 1")
-                synchronized(lock1) {
-                    onResult("Поток 2 замок 1")
-                }
+        synchronized(lock2) {
+            onResult("Поток 2 замок 2")
+            Log.d("MyLog", "Поток 2 пытается захватить замок 1")
+            Thread.sleep(1000)
+            synchronized(lock1) {
+                onResult("Поток 2 замок 1")
             }
-        }.start()
+        }
     }
 
     fun runExample(onResult: (String) -> Unit) {
-        method1(onResult)
-        method2(onResult)
+        val thread1 = Thread { method1(onResult) }
+        val thread2 = Thread { method2(onResult) }
+        thread1.start()
+        thread2.start()
+        thread1.join()
+        thread2.join()
     }
 }

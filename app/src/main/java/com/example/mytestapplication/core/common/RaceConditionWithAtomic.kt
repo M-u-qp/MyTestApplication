@@ -7,7 +7,6 @@ import kotlin.concurrent.thread
 class RaceConditionWithAtomic {
     private var counter = AtomicInteger(0)
 
-    @Synchronized
     private fun increment(): Int {
         return counter.incrementAndGet()
     }

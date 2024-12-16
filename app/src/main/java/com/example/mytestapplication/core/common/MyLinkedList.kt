@@ -42,10 +42,10 @@ class MyLinkedList {
         return result
     }
 
-    fun printList() {
+    fun forEach1(action: (Int) -> Unit) {
         var current = head
         while (current != null) {
-            println(current.data)
+            action(current.data)
             current = current.next
         }
     }
