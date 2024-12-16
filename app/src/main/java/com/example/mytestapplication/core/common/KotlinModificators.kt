@@ -1,4 +1,4 @@
-package com.example.mytestapplication.screen.common
+package com.example.mytestapplication.core.common
 
 import android.util.Log
 

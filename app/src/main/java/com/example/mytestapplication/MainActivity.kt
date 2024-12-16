@@ -7,10 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.rememberNavController
-import com.example.mytestapplication.navigation.NavGraph
-import com.example.mytestapplication.screen.common.crossInlineFunc
-import com.example.mytestapplication.screen.common.inlineFunc
-import com.example.mytestapplication.screen.common.noInlineFunc
+import com.example.mytestapplication.presentation.navigation.NavGraph
+import com.example.mytestapplication.core.common.crossInlineFunc
+import com.example.mytestapplication.core.common.inlineFunc
+import com.example.mytestapplication.core.common.noInlineFunc
 import com.example.mytestapplication.ui.theme.MyTestApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyTestApplicationTheme {
                 inlineFunc { Log.d("MyLog", "inlined block") }
-                noInlineFunc { Log.d("MyLog", "noInlined block")  }
+                noInlineFunc { Log.d("MyLog", "noInlined block") }
                 crossInlineFunc {
                     Log.d("MyLog", "crossInlined block")
                     return@crossInlineFunc

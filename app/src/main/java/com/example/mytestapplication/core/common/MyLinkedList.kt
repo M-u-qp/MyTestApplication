@@ -1,22 +1,23 @@
-package com.example.mytestapplication.screen.common
+package com.example.mytestapplication.core.common
 
 class MyLinkedList {
     private var head: Node? = null
+    private var tail: Node? = null
+
     private data class Node(var data: Int, var next: Node? = null)
 
     fun add(data: Int) {
         val newNode = Node(data)
         if (head == null) {
             head = newNode
+            tail = newNode
         } else {
-            var current = head
-            while (current?.next != null) {
-                current = current.next
-            }
-            current?.next = newNode
+            tail?.next = newNode
+            tail = newNode
         }
     }
-    fun reverse() {
+
+    fun reverse(): MyLinkedList {
         var previous: Node? = null
         var current = head
         var next: Node?
@@ -28,7 +29,9 @@ class MyLinkedList {
             current = next
         }
         head = previous
+        return this
     }
+
     fun toList(): List<Int> {
         val result = mutableListOf<Int>()
         var current = head
@@ -37,5 +40,13 @@ class MyLinkedList {
             current = current.next
         }
         return result
+    }
+
+    fun printList() {
+        var current = head
+        while (current != null) {
+            println(current.data)
+            current = current.next
+        }
     }
 }

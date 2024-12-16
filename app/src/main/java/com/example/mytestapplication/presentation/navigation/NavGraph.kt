@@ -1,4 +1,4 @@
-package com.example.mytestapplication.navigation
+package com.example.mytestapplication.presentation.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
@@ -8,10 +8,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.mytestapplication.screen.DeadlockScreen
-import com.example.mytestapplication.screen.GenericLinkedList
-import com.example.mytestapplication.screen.HomeScreen
-import com.example.mytestapplication.screen.SingleLinkedList
+import com.example.mytestapplication.presentation.screen.DeadlockScreen
+import com.example.mytestapplication.presentation.screen.GenericLinkedList
+import com.example.mytestapplication.presentation.screen.HomeScreen
+import com.example.mytestapplication.presentation.screen.SingleLinkedList
 
 @Composable
 fun NavGraph(navController: NavHostController) {

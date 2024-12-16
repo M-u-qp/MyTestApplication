@@ -1,4 +1,4 @@
-package com.example.mytestapplication.screen
+package com.example.mytestapplication.presentation.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.mytestapplication.screen.common.MyLinkedList
+import com.example.mytestapplication.core.common.MyLinkedList
 
 @Composable
 fun SingleLinkedList() {
@@ -48,6 +48,7 @@ fun SingleLinkedList() {
                         listItems.value = linkedList.toList()
                         inputValue.value = ""
                     }
+                    linkedList.printList()
                 }
             ) {
                 Text("Добавить")

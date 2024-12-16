@@ -1,4 +1,4 @@
-package com.example.mytestapplication.screen
+package com.example.mytestapplication.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mytestapplication.screen.common.MyGenericLinkedList
+import com.example.mytestapplication.core.common.MyGenericLinkedList
 
 @Composable
 fun GenericLinkedList() {

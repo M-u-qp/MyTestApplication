@@ -1,4 +1,4 @@
-package com.example.mytestapplication.screen
+package com.example.mytestapplication.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,12 +22,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.mytestapplication.screen.common.DeadlockExample
-import com.example.mytestapplication.screen.common.DeadlockWithChannel
-import com.example.mytestapplication.screen.common.DeadlockWithMutex
-import com.example.mytestapplication.screen.common.RaceConditionExample
-import com.example.mytestapplication.screen.common.RaceConditionWithAtomic
-import com.example.mytestapplication.screen.common.RaceConditionWithMutex
+import com.example.mytestapplication.core.common.DeadlockExample
+import com.example.mytestapplication.core.common.DeadlockWithSemaphore
+import com.example.mytestapplication.core.common.DeadlockWithLock
+import com.example.mytestapplication.core.common.RaceConditionExample
+import com.example.mytestapplication.core.common.RaceConditionWithAtomic
+import com.example.mytestapplication.core.common.RaceConditionWithLock
 
 @Composable
 fun DeadlockScreen() {
@@ -57,12 +57,12 @@ fun DeadlockScreen() {
             )
             DeadlockScreenElement(
                 onClick = {
-                    RaceConditionWithMutex().runExample { newValue ->
+                    RaceConditionWithLock().runExample { newValue ->
                         counterRaceConditionMutex = newValue
                     }
                 },
                 result = counterRaceConditionMutex.toString(),
-                text = "Cостояниe гонки с Mutex"
+                text = "Cостояниe гонки с Lock"
             )
             DeadlockScreenElement(
                 onClick = {
@@ -84,21 +84,21 @@ fun DeadlockScreen() {
             )
             DeadlockScreenElement(
                 onClick = {
-                    DeadlockWithMutex().runExample { newResult ->
+                    DeadlockWithLock().runExample { newResult ->
                         resultDeadlockMutex = newResult
                     }
                 },
                 result = resultDeadlockMutex,
-                text = "Взаимная блокировка c Mutex"
+                text = "Взаимная блокировка c Lock"
             )
             DeadlockScreenElement(
                 onClick = {
-                    DeadlockWithChannel().runExample { newResult ->
+                    DeadlockWithSemaphore().runExample { newResult ->
                         resultDeadlockChannel = newResult
                     }
                 },
                 result = resultDeadlockChannel,
-                text = "Взаимная блокировка c Channel"
+                text = "Взаимная блокировка c Semaphore"
             )
         }
     }

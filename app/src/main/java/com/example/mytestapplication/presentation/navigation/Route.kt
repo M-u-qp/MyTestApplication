@@ -1,4 +1,4 @@
-package com.example.mytestapplication.navigation
+package com.example.mytestapplication.presentation.navigation
 
 sealed class Route(val route: String) {
     data object AppStartNavigation : Route(route = "appStartNavigation")
